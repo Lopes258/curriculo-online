@@ -110,7 +110,7 @@ st.header(texts['about'][language_code])
 col1, col2 = st.columns([1,3])
 #Foto na coluna da esquerda
 with col1:
-    st.image(r"C:\Users\lopes\Portifolio\privados\profile.png", width=200)
+    st.image("profile.png", width=200)
 
 #Resumo profissional a direita
 with col2:
@@ -151,7 +151,7 @@ with col4:
                     </a>
                 </li>
                 <li>
-                    <a href="C:/Users/lopes/Portifolio/privado/Profile.pdf" download style="text-decoration: none; color: white;">
+                    <a href="Profile.pdf" download style="text-decoration: none; color: white;">
                         {texts['download_resume'][language_code]}
                     </a>            
                 </li>
@@ -266,7 +266,7 @@ with st.expander("SQL", expanded=False):
 with st.expander("Python", expanded=False):
     st.write(texts['automation'][language_code])
 
-    with open(r"C:\Users\lopes\Portifolio\publico\port.py", "r", encoding="utf-8") as f:
+    with open("port.py", "r", encoding="utf-8") as f:
         codigo = f.read()
 
     st.code(codigo, language="python")
