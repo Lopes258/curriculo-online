@@ -1,5 +1,4 @@
 import streamlit as st
-import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
 import os
@@ -17,14 +16,96 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+# Seleção de idiomas
+language = st.selectbox("Selecione o idioma", ["Português", "English"])
+language_code = 'pt'if language == "Português" else 'en'
+
+
+#TEXTOS
+texts = {
+    'title': {
+        'pt': "Lucas - Analista de Dados",
+        'en': "Lucas - Data Analyst"
+    },
+    'about': {
+        'pt': "Sobre mim",
+        'en': "About me"
+    },
+    'summary': {
+        'pt': "Resumo da Carreira",
+        'en': "Career Summary"
+    },
+    'sumary_text': {
+        'pt': """Sou Lucas Lopes, Analista de Dados com mais de 6 anos de experiência na transformação de dados em insights estratégicos. 
+                Atualmente atuo na Cheil Brasil, liderando projetos de BI com foco em automação, visualização de dados e melhoria de performance. 
+                Especialista em Power BI, Python e SQL, tenho histórico em reduzir custos, aumentar a eficiência e apoiar a tomada de decisão com inteligência analítica.
+                Possuo fluência em português e inglês, além de vivência em ambientes multiculturais e domínio de metodologias ágeis.""",
+        'en':"""I'm Lucas Lopes, a Data Analyst with over 6 years of experience transforming data into strategic insights. 
+                Currently working at Cheil Brazil, I lead BI projects focused on automation, data visualization, and performance improvement. 
+                I specialize in Power BI, Python, and SQL, with a track record of reducing costs, increasing efficiency, and supporting decision-making with analytical intelligence. 
+                Fluent in both Portuguese and English, with multicultural experience and knowledge of agile methodologies."""      
+                },
+    'contact': {
+        'pt': "Informações de Contato",
+        'en': "Contact Information"
+    },
+    'social': {
+        'pt': "Redes Sociais",
+        'en': "Social Networks"
+    },
+    'skills': {
+        'pt': "Minhas Habilidades",
+        'en': "My Skills"
+    },
+    'projects': {
+        'pt': "Acesse meus Projetos",
+        'en': "Access my Projects"
+    },
+    'dashboard': {
+        'pt': "Aqui um exemplo de Dashboards em Power BI.",
+        'en': "Here there is a exemple of Dashboards in Power BI."
+    },
+    'data_science': {
+        'pt': "Acesse o meu github para ver uma analise em Data Science usando Python.",
+        'en': "Access my github to see a a analisys of Data Science using Python."
+    },
+    'sql': {
+        'pt': "Montagem de Banco e SQL",
+        'en': "Database Setup and SQL"
+    },
+    'automation': {
+        'pt': "Automação em Python",
+        'en': "Automation in Python"
+    },
+    'download_resume': {
+        'pt': "📄 Baixar Currículo",
+        'en': "📄 Download Resume"
+    },
+    'phone': {
+        'pt': "Telefone",
+        'en': "Phone"
+    },
+    'email': {
+        'pt': "E-mail",
+        'en': "E-mail"
+    },
+    'position': {
+        'pt': "Cargo",
+        'en': "Position"
+    },
+    'company': {
+        'pt': "Empresa",
+        'en': "Company"
+    }
+}
 
 
 
 # Título do site
-st.title("Lucas - Analista de Dados")
+st.title(texts['title'][language_code])
 
 # Seção 1: Foto e informações básicas
-st.header("Sobre mim")
+st.header(texts['about'][language_code])
 #Criar colunas para deixar foto e resumo profissional lado a lado
 col1, col2 = st.columns([1,3])
 #Foto na coluna da esquerda
@@ -33,34 +114,28 @@ with col1:
 
 #Resumo profissional a direita
 with col2:
-    st.subheader("Resumo da Carreira")
-    st.write("""
-            Sou Lucas Lopes, Analista de Dados com mais de 6 anos de experiência na transformação de dados em insights estratégicos. 
-            Atualmente atuo na Cheil Brasil, liderando projetos de BI com foco em automação, visualização de dados e melhoria de performance. 
-            Especialista em Power BI, Python e SQL, tenho histórico em reduzir custos, aumentar a eficiência e apoiar a tomada de decisão com inteligência analítica.
-            Possuo fluência em português e inglês, além de vivência em ambientes multiculturais e domínio de metodologias ágeis.
-""")
+    st.subheader(texts['summary'][language_code])
+    st.write(texts['sumary_text'][language_code])
 #Juntar as informações de contato e as rede sociais em duas colunas tambem
 col3,col4 = st.columns([2,1])
 # Informações de contato
 with col3:
-    st.subheader("Informações de Contato")
-    st.markdown("""
-                <div style="background-color: #2c2f3e; border-radius: 10px; padding:20px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                    <ul>
-                        <li><strong>Cargo:</strong> Analista de Dados</li>
-                        <li><strong>Empresa:</strong> SPOT</li>
-                        <li><strong>Telefone:</strong> +55 (13) 98118-1893</li>
-                        <li><strong>E-mail:</strong> lopes.lucas128@gmail.com</li>
-                    <ul>
-                </div>
+    st.subheader(texts['contact'][language_code])
+    st.markdown(f"""
+        <div style="background-color: #2c2f3e; border-radius: 10px; padding:20px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <ul>
+                <li><strong>{texts['position'][language_code]}:</strong> Analista de Dados</li>
+                <li><strong>{texts['company'][language_code]}:</strong> SPOT</li>
+                <li><strong>{texts['phone'][language_code]}:</strong> +55 (13) 98118-1893</li>
+                <li><strong>{texts['email'][language_code]}:</strong> lopes.lucas128@gmail.com</li>
+            </ul>
+        </div>
     """, unsafe_allow_html=True)
 
-# Links do LinkedIn e GitHub com ícones
+# Redes sociais
 with col4:
-    st.subheader("Redes Sociais")
-   
-    st.markdown("""
+    st.subheader(texts['social'][language_code])
+    st.markdown(f"""
         <div style="background-color: #2c2f3e; border-radius: 10px; padding: 20px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <ul>
                 <li>
@@ -74,11 +149,11 @@ with col4:
                         <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" width="20" height="20" style="vertical-align: middle;">
                         GitHub
                     </a>
-                <li>
-                    <a href="C:/Users/lopes/Portifolio/privado/Profile.pdf" download style=text-decoration: none; color: white;">
-                    📄 Baixar Currículo
-                    </a>            
                 </li>
+                <li>
+                    <a href="C:/Users/lopes/Portifolio/privado/Profile.pdf" download style="text-decoration: none; color: white;">
+                        {texts['download_resume'][language_code]}
+                    </a>            
                 </li>
             </ul>
         </div>
@@ -162,11 +237,11 @@ st.plotly_chart(fig)
 # Seção 3: Quadros de acesso - Hospedando diretamente no site
 
 # Usando Expanders para criar seções que podem ser expandidas
-st.header("Acesse meus Projetos")
+st.header(texts['projects'][language_code])
 
 # Dashboard
 with st.expander("Dashboards", expanded=False):
-    st.write("Aqui estão meus Dashboards interativos de Power BI.")
+    st.write(texts['dashboard'][language_code])
     # Exemplo de embutir Power BI via Iframe (ajustar o link do Power BI)
     st.markdown("""
         <iframe width="100%" height="400" src="https://app.powerbi.com/reportEmbed?reportId=SEU_REPORT_ID&autoAuth=true&ctid=SEU_CTI" frameborder="0" allowFullScreen="true"></iframe>
@@ -174,12 +249,12 @@ with st.expander("Dashboards", expanded=False):
 
 # Data Science
 with st.expander("Data Science", expanded=False):
-    st.write("Aqui estão exemplos de projetos de Data Science.")
+    st.write(texts['data_science'][language_code])
     st.markdown("[Ver Projetos de Data Science no GitHub](https://github.com/Lopes258/2--Projeto-Pratico---Dados)")
 
 # Montagem de Banco e SQL
-with st.expander("Montagem de Banco e Portfólio com SQL", expanded=False):
-    st.write("Aqui estão meus exemplos de SQL.")
+with st.expander("SQL", expanded=False):
+    st.write(texts['sql'][language_code])
     st.markdown("""
         <pre>
         -- Exemplo de query SQL
@@ -188,12 +263,10 @@ with st.expander("Montagem de Banco e Portfólio com SQL", expanded=False):
     """, unsafe_allow_html=True)
 
 # Automação em Python
-with st.expander("Automação em Python", expanded=False):
-    st.write("Aqui você pode ver minhas automações feitas com Python.")
-    st.markdown("""
-        <pre>
-        # Exemplo de automação em Python
-        import os
-        os.system('python seu_script.py')
-        </pre>
-    """, unsafe_allow_html=True)
+with st.expander("Python", expanded=False):
+    st.write(texts['automation'][language_code])
+
+    with open(r"C:\Users\lopes\Portifolio\publico\port.py", "r", encoding="utf-8") as f:
+        codigo = f.read()
+
+    st.code(codigo, language="python")
