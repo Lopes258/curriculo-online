@@ -223,7 +223,6 @@ fig.add_trace(go.Bar(
         colorscale='RdYlGn',  # Gradiente de vermelho (baixo) para verde (alto)
         cmin=0,  # Mínimo valor para a escala de cores
         cmax=10,  # Máximo valor para a escala de cores
-        cornerradius=10,
         line=dict(color='black', width=0.5),  # Bordas das barras
     ),
     text=None,
