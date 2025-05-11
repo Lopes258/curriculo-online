@@ -8,9 +8,46 @@ st.set_page_config(page_title="Portfólio de Lucas Lopes", page_icon=":bar_chart
 st.markdown(
     """
     <style>
-    body {
-        background-color: #1e1e1e;  /* Cor de fundo escura */
-        color: white;  /* Cor do texto branca */
+    /* Forçar tema escuro para todo o site */
+    .stApp {
+        background-color: #1e1e1e;
+        color: white;
+    }
+    
+    /* Estilizar elementos específicos do Streamlit */
+    .stButton button {
+        background-color: #2c2f3e;
+        color: white;
+        border: 1px solid #4a4a4a;
+    }
+    
+    .stSelectbox {
+        background-color: #2c2f3e;
+        color: white;
+    }
+    
+    /* Estilizar textos e cabeçalhos */
+    h1, h2, h3, h4, h5, h6 {
+        color: white !important;
+    }
+    
+    p, div {
+        color: white !important;
+    }
+    
+    /* Estilizar expanders */
+    .streamlit-expanderHeader {
+        background-color: #2c2f3e !important;
+        color: white !important;
+    }
+    
+    /* Estilizar links */
+    a {
+        color: #4a9eff !important;
+    }
+    
+    a:hover {
+        color: #6fb1ff !important;
     }
     </style>
     """,
@@ -250,23 +287,150 @@ with st.expander("Dashboards", expanded=False):
 # Data Science
 with st.expander("Data Science", expanded=False):
     st.write(texts['data_science'][language_code])
-    st.markdown("[Ver Projetos de Data Science no GitHub](https://github.com/Lopes258/2--Projeto-Pratico---Dados)")
+    
+    # Adicionar título e descrição do projeto
+    st.subheader("Análise de Dados de Alimentos")
+    st.write("""
+    Este projeto realiza uma análise detalhada de dados de alimentos, incluindo:
+    - Tratamento de dados e preparação para análise
+    - Análise exploratória de dados
+    - Visualizações interativas
+    - Insights sobre nutrição e categorias de alimentos
+    """)
+    
+    # Adicionar link para o notebook
+    st.markdown("""
+    <div style="background-color: #2c2f3e; border-radius: 10px; padding: 20px; margin: 10px 0;">
+        <h4>📊 Notebook de Análise</h4>
+        <p>Para ver a análise completa, acesse o notebook no GitHub:</p>
+        <a href="https://github.com/Lopes258/food_project/blob/main/src/analysis/food_analysis.ipynb" target="_blank" style="color: #4a9eff;">
+            Ver Notebook Completo
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Adicionar seção de tecnologias utilizadas
+    st.markdown("""
+    <div style="background-color: #2c2f3e; border-radius: 10px; padding: 20px; margin: 10px 0;">
+        <h4>🛠️ Tecnologias Utilizadas</h4>
+        <ul>
+            <li>Python</li>
+            <li>Pandas</li>
+            <li>Matplotlib</li>
+            <li>Seaborn</li>
+            <li>Jupyter Notebook</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Montagem de Banco e SQL
 with st.expander("SQL", expanded=False):
     st.write(texts['sql'][language_code])
+    
+    # Adicionar informações sobre o projeto BigQuery
     st.markdown("""
-        <pre>
-        -- Exemplo de query SQL
-        SELECT * FROM vendas WHERE data BETWEEN '2023-01-01' AND '2023-12-31';
+    <div style="background-color: #2c2f3e; border-radius: 10px; padding: 20px; margin: 10px 0;">
+        <h4>📊 Projeto Food Analysis - BigQuery</h4>
+        <p>Projeto de análise de dados de alimentos utilizando Google BigQuery, incluindo:</p>
+        <ul>
+            <li>Integração com API de alimentos</li>
+            <li>Automação de coleta de dados</li>
+            <li>Análise nutricional</li>
+            <li>Dashboard interativo</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Exemplos de queries do projeto de alimentos
+    st.markdown("""
+    <div style="background-color: #2c2f3e; border-radius: 10px; padding: 20px; margin: 10px 0;">
+        <h4>🔍 Exemplos de Queries do Projeto</h4>
+        <pre style="background-color: #1e1e1e; padding: 15px; border-radius: 5px; overflow-x: auto;">
+-- Análise de alimentos por categoria
+SELECT 
+    food_category,
+    COUNT(*) as total_foods,
+    AVG(calories) as avg_calories,
+    AVG(protein) as avg_protein
+FROM `food-project-459320.food_data.foods`
+GROUP BY food_category
+ORDER BY total_foods DESC;
+
+-- Análise nutricional detalhada
+SELECT 
+    food_name,
+    calories,
+    protein,
+    carbs,
+    fat,
+    ROUND((protein * 4 + carbs * 4 + fat * 9) / calories * 100, 2) as macro_balance
+FROM `food-project-459320.food_data.foods`
+WHERE calories > 0
+ORDER BY macro_balance DESC
+LIMIT 10;
         </pre>
+    </div>
     """, unsafe_allow_html=True)
 
-# Automação em Python
+# Codigo desse projeto no Streamlit
 with st.expander("Python", expanded=False):
     st.write(texts['automation'][language_code])
+    
+    # Mostrar o código de automação
+    st.markdown("""
+    <div style="background-color: #2c2f3e; border-radius: 10px; padding: 20px; margin: 10px 0;">
+        <h4>🤖 Automação de Coleta de Dados</h4>
+        <p>Código Python para coleta automática de dados de alimentos via API e carregamento no BigQuery:</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Código de exemplo da automação
+    st.code("""
+import requests
+import pandas as pd
+from google.cloud import bigquery
+from datetime import datetime
 
-    with open("port.py", "r", encoding="utf-8") as f:
-        codigo = f.read()
-
-    st.code(codigo, language="python")
+def fetch_food_data():
+    # Configuração da API
+    api_url = "https://api.example.com/foods"
+    headers = {
+        "Authorization": "Bearer YOUR_API_KEY"
+    }
+    
+    # Coleta de dados
+    response = requests.get(api_url, headers=headers)
+    data = response.json()
+    
+    # Transformação dos dados
+    df = pd.DataFrame(data)
+    df['load_date'] = datetime.now()
+    
+    # Carregamento no BigQuery
+    client = bigquery.Client()
+    table_id = "food-project-459320.food_data.foods"
+    
+    job_config = bigquery.LoadJobConfig(
+        write_disposition="WRITE_APPEND",
+    )
+    
+    job = client.load_table_from_dataframe(
+        df, table_id, job_config=job_config
+    )
+    job.result()
+    
+    return f"Loaded {len(df)} rows into {table_id}"
+    """, language="python")
+    
+    # Explicação do processo
+    st.markdown("""
+    <div style="background-color: #2c2f3e; border-radius: 10px; padding: 20px; margin: 10px 0;">
+        <h4>🔄 Processo de Automação</h4>
+        <ol>
+            <li>Coleta de dados via API de alimentos</li>
+            <li>Transformação e limpeza dos dados</li>
+            <li>Carregamento automático no BigQuery</li>
+            <li>Atualização diária dos dados</li>
+        </ol>
+    </div>
+    """, unsafe_allow_html=True)
